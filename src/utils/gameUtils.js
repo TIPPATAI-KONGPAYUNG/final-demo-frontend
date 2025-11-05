@@ -2,6 +2,8 @@
 import Phaser from 'phaser';
 import { preloadWeaponEffectSafe as preloadWeaponEffect } from './combatSystem'
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 // Global game variables
 let currentScene = null;
 let weaponsData = null; // เก็บข้อมูลอาวุธจาก API
@@ -55,7 +57,12 @@ export function resetPlayerHp(setPlayerHp) {
 export async function loadWeaponsData() {
   try {
     console.log("🔍 Loading weapons data from API...");
-    const response = await fetch('http://localhost:4000/api/weapons');
+    const response = await fetch(`${API_URL}/api/weapons`, {
+          headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'Content-Type': 'application/json'
+          }
+        });
     const result = await response.json();
 
     console.log("🔍 API response:", result);
