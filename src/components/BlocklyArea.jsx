@@ -163,11 +163,6 @@ const BlocklyArea = ({
                   </div>
                   {codeValidation.message && <div className="text-xs mt-1 opacity-90">{codeValidation.message}</div>}
                 </div>
-
-                <div className="text-xs text-gray-400 bg-gray-800/50 p-2 rounded">
-                  <div>💡 <strong>Tips:</strong> ใช้ await กับ moveForward(), hit() และใช้ if (foundMonster()) สำหรับเงื่อนไข</div>
-                  <div className={`text-xs ${blocklyJavaScriptReady ? 'text-green-400' : 'text-yellow-400'}`}>🔧 Blockly.JavaScript: {blocklyJavaScriptReady ? 'พร้อมใช้งาน' : 'กำลังโหลด...'}</div>
-                </div>
               </div>
             </div>
           )}
