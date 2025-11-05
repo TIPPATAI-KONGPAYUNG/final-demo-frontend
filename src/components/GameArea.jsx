@@ -159,10 +159,10 @@ const GameArea = ({
                     <div className="w-20 bg-gray-700 rounded-full h-2">
                       <div
                         className={`h-2 rounded-full transition-all duration-300 ${(hintData.patternPercentage || 0) === 100
-                            ? 'bg-gradient-to-r from-green-500 to-emerald-500'
+                            ? 'bg-green-500'
                             : (hintData.patternPercentage || 0) >= 50
-                              ? 'bg-gradient-to-r from-yellow-500 to-orange-500'
-                              : 'bg-gradient-to-r from-red-500 to-pink-500'
+                              ? 'bg-yellow-500'
+                              : 'bg-red-500'
                           }`}
                         style={{ width: `${hintData.patternPercentage || 0}%` }}
                       ></div>

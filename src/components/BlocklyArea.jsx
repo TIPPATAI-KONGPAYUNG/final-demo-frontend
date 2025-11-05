@@ -187,22 +187,22 @@ const BlocklyArea = ({
               (currentLevel?.textcode && !blocklyJavaScriptReady) ||
               (currentLevel?.textcode && !codeValidation?.isValid)
             }
-            className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 disabled:from-gray-500 disabled:to-gray-600 text-white px-3 py-1 rounded-lg font-semibold transition-all duration-200 hover:scale-105 disabled:hover:scale-100 shadow-lg disabled:shadow-md text-xs"
+            className="w-full bg-green-500 hover:from-green-600 hover:to-green-700 disabled:from-gray-500 disabled:to-gray-600 text-white px-3 py-1 rounded-lg font-semibold transition-all duration-200 hover:scale-105 disabled:hover:scale-100 shadow-lg disabled:shadow-md text-xs"
           >
             {gameState === "running" ? "กำลังทำงาน..." : "เริ่มเกม"}
           </button>
           <div className="grid grid-cols-2 gap-1">
             <button
               onClick={() => window.location.reload()}
-              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-2 py-1 rounded-lg font-semibold transition-all duration-200 hover:scale-105 shadow-lg text-xs"
+              className="bg-red-500 hover:from-red-600 hover:to-red-700 text-white px-2 py-1 rounded-lg font-semibold transition-all duration-200 hover:scale-105 shadow-lg text-xs"
             >
               🔄 รีเซ็ต
             </button>
             <button
               onClick={onDebugToggle}
               className={`px-2 py-1 rounded-lg font-semibold transition-all duration-200 hover:scale-105 shadow-lg text-xs ${debugMode
-                ? "bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black"
-                : "bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white"
+                ? "bg-yellow-500  hover:from-yellow-600 hover:to-yellow-700 text-black"
+                : "bg-gray-500 hover:from-gray-600 hover:to-gray-700 text-white"
                 }`}
             >
               {debugMode ? "Debug ON" : "Debug OFF"}

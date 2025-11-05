@@ -266,7 +266,7 @@ const LevelManager = ({ gameRef = null }) => {
         </div>
         <button
           onClick={loadLevels}
-          className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all font-medium shadow-sm"
+          className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all font-medium shadow-sm"
         >
           🔄 รีเฟรช
         </button>
@@ -279,7 +279,7 @@ const LevelManager = ({ gameRef = null }) => {
       )}
 
       {/* Filters */}
-      <div className="bg-gradient-to-r from-gray-50 to-blue-50 p-6 rounded-xl border border-gray-200 mb-6">
+      <div className="bg-white p-6 rounded-xl border border-gray-200 mb-6">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">🔍 ค้นหาและกรองข้อมูล</h3>
         <div className="flex gap-4">
           <div className="flex-1">
@@ -310,23 +310,23 @@ const LevelManager = ({ gameRef = null }) => {
 
       {/* Level Statistics */}
       <div className="grid grid-cols-4 gap-4 mb-6">
-        <div className="bg-gradient-to-br from-blue-100 to-blue-200 p-6 rounded-xl text-center border border-blue-300 shadow-sm">
+        <div className="bg-white p-6 rounded-xl text-center border border-blue-300 shadow-sm">
           <div className="text-3xl font-bold text-blue-700">{levels.length}</div>
           <div className="text-sm font-medium text-blue-800 mt-1">📚 Total Levels</div>
         </div>
-        <div className="bg-gradient-to-br from-green-100 to-green-200 p-6 rounded-xl text-center border border-green-300 shadow-sm">
+        <div className="bg-white p-6 rounded-xl text-center border border-green-300 shadow-sm">
           <div className="text-3xl font-bold text-green-700">
             {levels.filter(l => l.difficulty === 'easy').length}
           </div>
           <div className="text-sm font-medium text-green-800 mt-1">🟢 Easy Levels</div>
         </div>
-        <div className="bg-gradient-to-br from-yellow-100 to-yellow-200 p-6 rounded-xl text-center border border-yellow-300 shadow-sm">
+        <div className="bg-white to-yellow-200 p-6 rounded-xl text-center border border-yellow-300 shadow-sm">
           <div className="text-3xl font-bold text-yellow-700">
             {levels.filter(l => l.difficulty === 'medium').length}
           </div>
           <div className="text-sm font-medium text-yellow-800 mt-1">🟡 Medium Levels</div>
         </div>
-        <div className="bg-gradient-to-br from-red-100 to-red-200 p-6 rounded-xl text-center border border-red-300 shadow-sm">
+        <div className="bg-red-100 p-6 rounded-xl text-center border border-red-300 shadow-sm">
           <div className="text-3xl font-bold text-red-700">
             {levels.filter(l => l.difficulty === 'hard').length}
           </div>
@@ -348,7 +348,7 @@ const LevelManager = ({ gameRef = null }) => {
           {filteredLevels.map((level) => (
             <div
               key={level.id}
-              className="border-2 rounded-xl p-6 transition-all border-gray-200 bg-gradient-to-r from-white to-gray-50 hover:border-blue-300 hover:shadow-lg"
+              className="border-2 rounded-xl p-6 transition-all border-gray-200 bg-white hover:border-blue-300 hover:shadow-lg"
             >
               <div className="flex justify-between items-start">
                 <div className="flex-1">
@@ -418,28 +418,28 @@ const LevelManager = ({ gameRef = null }) => {
                 <div className="flex flex-col gap-3 ml-6">
                   <button
                     onClick={() => handleEditLevel(level)}
-                    className="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all text-sm font-medium shadow-sm"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all text-sm font-medium shadow-sm"
                   >
                     📊 ดูรายละเอียด
                   </button>
 
                   <button
                     onClick={() => handleViewLevel(level)}
-                    className="px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all text-sm font-medium shadow-sm"
+                    className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all text-sm font-medium shadow-sm"
                   >
                     👁️ Viewer
                   </button>
 
                   <button
                     onClick={() => handleDuplicateLevel(level)}
-                    className="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all text-sm font-medium shadow-sm"
+                    className="px-4 py-2 bg-green-500 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all text-sm font-medium shadow-sm"
                   >
                     📋 คัดลอก
                   </button>
 
                   <button
                     onClick={() => handleDeleteLevel(level.id)}
-                    className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all text-sm font-medium shadow-sm"
+                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all text-sm font-medium shadow-sm"
                   >
                     🗑️ ลบ
                   </button>

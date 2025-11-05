@@ -421,7 +421,7 @@ const LevelDetailViewer = ({ levelData, onClose }) => {
       <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
         JSON Data
       </h3>
-      <div className="bg-gradient-to-r from-gray-50 to-slate-50 p-6 rounded-xl border border-gray-200 shadow-sm">
+      <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
         <div className="mb-4">
           <h4 className="text-lg font-semibold text-gray-800 mb-2">ข้อมูลทั้งหมดของด่าน:</h4>
           <p className="text-gray-600 text-sm">

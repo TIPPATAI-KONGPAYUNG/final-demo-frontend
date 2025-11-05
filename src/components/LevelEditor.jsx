@@ -941,7 +941,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       {activeTab === 'editor' && (
         <div className="flex gap-4 flex-wrap lg:flex-nowrap">
           {/* Game Canvas */}
-          <div className="bg-gray-800 rounded-lg p-2 flex-shrink-0 w-full max-w-fit">
+          <div className="bg-gray-800 rounded-lg p-2 shrink-0 w-full max-w-fit">
             {!phaserLoaded && typeof window !== 'undefined' && !window.Phaser ? (
               <div className={`${gameRef ? 'w-full max-w-[800px] h-[600px]' : 'w-[600px] h-[400px]'} flex items-center justify-center text-white`}>
                 <div className="text-center">
@@ -956,7 +956,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
 
           {/* Control Panel - ซ่อนใน viewer mode */}
           {!viewerMode && (
-            <div className="w-80 space-y-4 flex-shrink-0">
+            <div className="w-80 space-y-4 shrink-0">
               <h3 className="text-lg font-semibold text-gray-800">🛠️ เครื่องมือแก้ไข</h3>
               {console.log('Rendering editor tab, currentMode:', currentMode)}
 
@@ -1151,7 +1151,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       {activeTab === 'viewer' && (
         <div className="flex gap-4 flex-wrap lg:flex-nowrap">
           {/* Game Canvas */}
-          <div className="bg-gray-800 rounded-lg p-2 flex-shrink-0 w-full max-w-fit">
+          <div className="bg-gray-800 rounded-lg p-2 shrink-0 w-full max-w-fit">
             {!phaserLoaded && typeof window !== 'undefined' && !window.Phaser ? (
               <div className={`${gameRef ? 'w-full max-w-[800px] h-[600px]' : 'w-[600px] h-[400px]'} flex items-center justify-center text-white`}>
                 <div className="text-center">
@@ -1165,7 +1165,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
           </div>
 
           {/* Viewer Panel */}
-          <div className="w-80 space-y-4 flex-shrink-0">
+          <div className="w-80 space-y-4 shrink-0">
             <h3 className="text-lg font-semibold text-gray-800">📊 ข้อมูล Level</h3>
 
             {(!initialData || initialData.nodes.length === 0) && (!savedLevelData || savedLevelData.nodes.length === 0) && levelData.nodes.length === 0 ? (
