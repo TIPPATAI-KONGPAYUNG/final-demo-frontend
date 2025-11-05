@@ -1,0 +1,1049 @@
+{
+	"textures": [
+		{
+			"image": "vampire.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 290,
+				"h": 62
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "enemies-vampire_attack-9.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 4,
+						"w": 23,
+						"h": 24
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 23,
+						"h": 24
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-8.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 3,
+						"w": 19,
+						"h": 24
+					},
+					"frame": {
+						"x": 1,
+						"y": 27,
+						"w": 19,
+						"h": 24
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-12.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 22,
+						"w": 21,
+						"h": 8
+					},
+					"frame": {
+						"x": 1,
+						"y": 53,
+						"w": 21,
+						"h": 8
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-7.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 4,
+						"w": 21,
+						"h": 23
+					},
+					"frame": {
+						"x": 22,
+						"y": 27,
+						"w": 21,
+						"h": 23
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-11.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 21,
+						"w": 20,
+						"h": 9
+					},
+					"frame": {
+						"x": 24,
+						"y": 52,
+						"w": 20,
+						"h": 9
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 8,
+						"w": 14,
+						"h": 22
+					},
+					"frame": {
+						"x": 26,
+						"y": 1,
+						"w": 14,
+						"h": 22
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-5.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 6,
+						"w": 23,
+						"h": 21
+					},
+					"frame": {
+						"x": 42,
+						"y": 1,
+						"w": 23,
+						"h": 21
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-6.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 6,
+						"w": 23,
+						"h": 21
+					},
+					"frame": {
+						"x": 45,
+						"y": 24,
+						"w": 23,
+						"h": 21
+					}
+				},
+				{
+					"filename": "enemies-vampire_movement-1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 8,
+						"w": 15,
+						"h": 21
+					},
+					"frame": {
+						"x": 67,
+						"y": 1,
+						"w": 15,
+						"h": 21
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-10.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 19,
+						"w": 17,
+						"h": 11
+					},
+					"frame": {
+						"x": 46,
+						"y": 47,
+						"w": 17,
+						"h": 11
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-13.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 22,
+						"w": 21,
+						"h": 8
+					},
+					"frame": {
+						"x": 65,
+						"y": 47,
+						"w": 21,
+						"h": 8
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 9,
+						"w": 14,
+						"h": 21
+					},
+					"frame": {
+						"x": 70,
+						"y": 24,
+						"w": 14,
+						"h": 21
+					}
+				},
+				{
+					"filename": "enemies-vampire_movement-5.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 8,
+						"w": 14,
+						"h": 21
+					},
+					"frame": {
+						"x": 84,
+						"y": 1,
+						"w": 14,
+						"h": 21
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-10.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 9,
+						"w": 27,
+						"h": 20
+					},
+					"frame": {
+						"x": 86,
+						"y": 24,
+						"w": 27,
+						"h": 20
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-12.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 14,
+						"w": 20,
+						"h": 15
+					},
+					"frame": {
+						"x": 88,
+						"y": 46,
+						"w": 20,
+						"h": 15
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-9.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 15,
+						"w": 16,
+						"h": 15
+					},
+					"frame": {
+						"x": 110,
+						"y": 46,
+						"w": 16,
+						"h": 15
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 7,
+						"w": 19,
+						"h": 20
+					},
+					"frame": {
+						"x": 100,
+						"y": 1,
+						"w": 19,
+						"h": 20
+					}
+				},
+				{
+					"filename": "enemies-vampire_take_damage-3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 10,
+						"w": 16,
+						"h": 20
+					},
+					"frame": {
+						"x": 115,
+						"y": 23,
+						"w": 16,
+						"h": 20
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-11.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 11,
+						"w": 23,
+						"h": 16
+					},
+					"frame": {
+						"x": 128,
+						"y": 45,
+						"w": 23,
+						"h": 16
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-5.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 10,
+						"w": 15,
+						"h": 20
+					},
+					"frame": {
+						"x": 121,
+						"y": 1,
+						"w": 15,
+						"h": 20
+					}
+				},
+				{
+					"filename": "enemies-vampire_movement-0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 9,
+						"w": 15,
+						"h": 20
+					},
+					"frame": {
+						"x": 133,
+						"y": 23,
+						"w": 15,
+						"h": 20
+					}
+				},
+				{
+					"filename": "enemies-vampire_movement-2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 9,
+						"w": 15,
+						"h": 20
+					},
+					"frame": {
+						"x": 138,
+						"y": 1,
+						"w": 15,
+						"h": 20
+					}
+				},
+				{
+					"filename": "enemies-vampire_movement-4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 9,
+						"w": 15,
+						"h": 20
+					},
+					"frame": {
+						"x": 150,
+						"y": 23,
+						"w": 15,
+						"h": 20
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 10,
+						"w": 14,
+						"h": 20
+					},
+					"frame": {
+						"x": 155,
+						"y": 1,
+						"w": 14,
+						"h": 20
+					}
+				},
+				{
+					"filename": "enemies-vampire_movement-6.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 9,
+						"w": 14,
+						"h": 20
+					},
+					"frame": {
+						"x": 167,
+						"y": 23,
+						"w": 14,
+						"h": 20
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 10,
+						"w": 13,
+						"h": 20
+					},
+					"frame": {
+						"x": 171,
+						"y": 1,
+						"w": 13,
+						"h": 20
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 11,
+						"w": 18,
+						"h": 19
+					},
+					"frame": {
+						"x": 183,
+						"y": 23,
+						"w": 18,
+						"h": 19
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-13.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 13,
+						"w": 19,
+						"h": 17
+					},
+					"frame": {
+						"x": 183,
+						"y": 44,
+						"w": 19,
+						"h": 17
+					}
+				},
+				{
+					"filename": "enemies-vampire_take_damage-2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 11,
+						"w": 18,
+						"h": 19
+					},
+					"frame": {
+						"x": 186,
+						"y": 1,
+						"w": 18,
+						"h": 19
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-6.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 11,
+						"w": 16,
+						"h": 19
+					},
+					"frame": {
+						"x": 203,
+						"y": 22,
+						"w": 16,
+						"h": 19
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-7.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 11,
+						"w": 16,
+						"h": 19
+					},
+					"frame": {
+						"x": 206,
+						"y": 1,
+						"w": 16,
+						"h": 19
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-14.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 12,
+						"w": 17,
+						"h": 18
+					},
+					"frame": {
+						"x": 204,
+						"y": 43,
+						"w": 17,
+						"h": 18
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-8.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 11,
+						"w": 16,
+						"h": 19
+					},
+					"frame": {
+						"x": 221,
+						"y": 22,
+						"w": 16,
+						"h": 19
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 12,
+						"w": 17,
+						"h": 18
+					},
+					"frame": {
+						"x": 223,
+						"y": 43,
+						"w": 17,
+						"h": 18
+					}
+				},
+				{
+					"filename": "enemies-vampire_take_damage-1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 11,
+						"w": 16,
+						"h": 19
+					},
+					"frame": {
+						"x": 224,
+						"y": 1,
+						"w": 16,
+						"h": 19
+					}
+				},
+				{
+					"filename": "enemies-vampire_idle-2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 11,
+						"w": 14,
+						"h": 19
+					},
+					"frame": {
+						"x": 239,
+						"y": 22,
+						"w": 14,
+						"h": 19
+					}
+				},
+				{
+					"filename": "enemies-vampire_idle-3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 11,
+						"w": 14,
+						"h": 19
+					},
+					"frame": {
+						"x": 239,
+						"y": 22,
+						"w": 14,
+						"h": 19
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 12,
+						"w": 14,
+						"h": 18
+					},
+					"frame": {
+						"x": 242,
+						"y": 43,
+						"w": 14,
+						"h": 18
+					}
+				},
+				{
+					"filename": "enemies-vampire_death-0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 12,
+						"w": 14,
+						"h": 18
+					},
+					"frame": {
+						"x": 242,
+						"y": 43,
+						"w": 14,
+						"h": 18
+					}
+				},
+				{
+					"filename": "enemies-vampire_idle-0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 12,
+						"w": 14,
+						"h": 18
+					},
+					"frame": {
+						"x": 242,
+						"y": 43,
+						"w": 14,
+						"h": 18
+					}
+				},
+				{
+					"filename": "enemies-vampire_take_damage-0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 12,
+						"w": 14,
+						"h": 18
+					},
+					"frame": {
+						"x": 242,
+						"y": 43,
+						"w": 14,
+						"h": 18
+					}
+				},
+				{
+					"filename": "enemies-vampire_take_damage-4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 12,
+						"w": 14,
+						"h": 18
+					},
+					"frame": {
+						"x": 242,
+						"y": 43,
+						"w": 14,
+						"h": 18
+					}
+				},
+				{
+					"filename": "enemies-vampire_movement-3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 10,
+						"w": 14,
+						"h": 19
+					},
+					"frame": {
+						"x": 242,
+						"y": 1,
+						"w": 14,
+						"h": 19
+					}
+				},
+				{
+					"filename": "enemies-vampire_movement-7.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 10,
+						"w": 14,
+						"h": 19
+					},
+					"frame": {
+						"x": 255,
+						"y": 22,
+						"w": 14,
+						"h": 19
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-15.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 12,
+						"w": 14,
+						"h": 18
+					},
+					"frame": {
+						"x": 258,
+						"y": 43,
+						"w": 14,
+						"h": 18
+					}
+				},
+				{
+					"filename": "enemies-vampire_attack-1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 13,
+						"w": 15,
+						"h": 17
+					},
+					"frame": {
+						"x": 274,
+						"y": 1,
+						"w": 15,
+						"h": 17
+					}
+				},
+				{
+					"filename": "enemies-vampire_idle-1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 12,
+						"w": 14,
+						"h": 18
+					},
+					"frame": {
+						"x": 258,
+						"y": 1,
+						"w": 14,
+						"h": 18
+					}
+				},
+				{
+					"filename": "enemies-vampire_idle-4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 12,
+						"w": 14,
+						"h": 18
+					},
+					"frame": {
+						"x": 274,
+						"y": 20,
+						"w": 14,
+						"h": 18
+					}
+				},
+				{
+					"filename": "enemies-vampire_idle-5.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 12,
+						"w": 14,
+						"h": 18
+					},
+					"frame": {
+						"x": 274,
+						"y": 40,
+						"w": 14,
+						"h": 18
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:221d9fefe13ab296d1c3fff07ce5c189:bc08dedef5c8a0c861e2a0250bb40913:7c7f4480e486e87f2a9b272f35888b2e$"
+	}
+}

@@ -1,0 +1,9 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="400" height="300" fill="#F3F4F6"/>
+<path d="M200 130H180V140H200V130Z" fill="#9CA3AF"/>
+<path d="M200 140H220V150H200V240H210V250H200V240Z" fill="#9CA3AF"/>
+<path d="M200 150H190V160H200V150Z" fill="#9CA3AF"/>
+<circle cx="200" cy="155" r="5" fill="#9CA3AF"/>
+<text x="200" y="180" font-family="Arial, sans-serif" font-size="14" fill="#9CA3AF" text-anchor="middle">ไม่มีรูปภาพ</text>
+<text x="200" y="200" font-family="Arial, sans-serif" font-size="12" fill="#9CA3AF" text-anchor="middle">คำแนะนำจะแสดงที่นี่</text>
+</svg>
