@@ -86,7 +86,7 @@ const ProgressModal = ({ isOpen, onClose, gameResult, levelData, attempts, timeS
               {/* Blockly XML Preview */}
               <div className="mt-2">
                 <p className="font-bold">Blockly XML:</p>
-                <div className="bg-gray-950 p-2 rounded mt-1 text-xs font-mono overflow-x-auto max-h-32 overflow-y-auto">
+                <div className="bg-gray-950 text-gray-100 p-2 rounded mt-1 text-xs font-mono overflow-x-auto max-h-32 overflow-y-auto">
                   {userProgressExample.blockly_code ? (
                     userProgressExample.blockly_code.length > 100 
                       ? userProgressExample.blockly_code.substring(0, 1000)
