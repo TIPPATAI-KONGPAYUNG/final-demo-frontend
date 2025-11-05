@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, gameRef = null, levelsTypesData: propLevelsTypesData = [] }) => {
   // ใช้ gameRef จาก props หรือสร้างใหม่ถ้าไม่มี
   const editorRef = useRef(null);
   const viewerRef = useRef(null);
   const [activeTab, setActiveTab] = useState(viewerMode ? 'viewer' : 'editor');
-  
-  const [levelData, setLevelData] = useState({ 
-    nodes: initialData?.nodes || [], 
-    edges: initialData?.edges || [], 
-    startNodeId: initialData?.startNodeId || null, 
-    goalNodeId: initialData?.goalNodeId || null 
+
+  const [levelData, setLevelData] = useState({
+    nodes: initialData?.nodes || [],
+    edges: initialData?.edges || [],
+    startNodeId: initialData?.startNodeId || null,
+    goalNodeId: initialData?.goalNodeId || null
   });
   const [currentMode, setCurrentMode] = useState(null);
   const [selectedNode, setSelectedNode] = useState(null);
@@ -25,7 +25,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
   const [levelsTypesData, setLevelsTypesData] = useState([]);
   const [levelName, setLevelName] = useState('');
   const [levelDescription, setLevelDescription] = useState('');
-  
+
   // Use level types from props or load from API
   useEffect(() => {
     if (propLevelsTypesData.length > 0) {
@@ -38,9 +38,14 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
 
   const loadLevelsTypesData = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/level-types`);
+      const response = await fetch(`${API_URL}/api/level-types`, {
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+          'Content-Type': 'application/json'
+        }
+      });
       const result = await response.json();
-      
+
       if (result.success) {
         setLevelsTypesData(result.data);
         // Set default level type if available
@@ -52,12 +57,12 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       console.error('Error loading level types:', error);
     }
   };
-  
+
   // Use refs to store current state for event listeners
   const currentModeRef = useRef(currentMode);
   const levelDataRef = useRef(levelData);
   const selectedNodeRef = useRef(selectedNode);
-  
+
   // Update refs when state changes
   useEffect(() => {
     currentModeRef.current = currentMode;
@@ -82,7 +87,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
   let viewerGame = null;
   let editorGraphics = null;
   let viewerGraphics = null;
-  
+
   // ใช้ gameRef เดียวกันถ้ามี หรือใช้ ref ของตัวเอง
   const currentGameRef = gameRef || editorRef;
   const currentViewerRef = gameRef || viewerRef;
@@ -92,7 +97,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
   const addNode = (x, y) => {
     console.log('addNode called with:', x, y);
     console.log('Current levelData before adding node:', levelData);
-    
+
     const nodeId = levelData.nodes.length + 1;
     const newNode = {
       id: nodeId,
@@ -100,16 +105,16 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       y: Math.round(y),
       type: 'normal'
     };
-    
+
     const newLevelData = {
       ...levelData,
       nodes: [...levelData.nodes, newNode]
     };
-    
+
     console.log('Adding new node:', newNode);
     console.log('New level data:', newLevelData);
     setLevelData(newLevelData);
-    
+
     // Force redraw after adding node
     setTimeout(() => {
       if (editorGraphics) {
@@ -121,15 +126,15 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
 
   const findNodeAt = (x, y) => {
     const threshold = 20;
-    return levelDataRef.current.nodes.find(node => 
-      Math.abs(node.x - x) < threshold && 
+    return levelDataRef.current.nodes.find(node =>
+      Math.abs(node.x - x) < threshold &&
       Math.abs(node.y - y) < threshold
     );
   };
 
   const handleNodeClick = (node) => {
     const currentModeValue = currentModeRef.current;
-    
+
     if (currentModeValue === 'start') {
       const currentLevelData = levelDataRef.current;
       const newLevelData = {
@@ -138,7 +143,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       };
       console.log('Start node set to:', node.id);
       setLevelData(newLevelData);
-      
+
       // Force redraw
       setTimeout(() => {
         if (editorGraphics) {
@@ -154,7 +159,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       };
       console.log('Goal node set to:', node.id);
       setLevelData(newLevelData);
-      
+
       // Force redraw
       setTimeout(() => {
         if (editorGraphics) {
@@ -167,10 +172,10 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
 
   const handleCanvasClick = (x, y) => {
     console.log('Canvas clicked at:', x, y, 'Current mode:', currentMode);
-    
+
     // ตรวจสอบว่าคลิกที่ node หรือไม่
     const clickedNode = findNodeAt(x, y);
-    
+
     if (clickedNode && (currentMode === 'start' || currentMode === 'goal')) {
       console.log('Setting', currentMode, 'node to:', clickedNode.id);
       handleNodeClick(clickedNode);
@@ -190,11 +195,11 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
 
   const handleEdgeClick = (x, y) => {
     const clickedNode = findNodeAt(x, y);
-    
+
     if (!clickedNode) return;
-    
+
     const currentSelectedNode = selectedNodeRef.current;
-    
+
     if (!currentSelectedNode) {
       // First node selection
       console.log('Selecting first node:', clickedNode.id);
@@ -213,11 +218,11 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
 
   const addEdge = (fromId, toId) => {
     const currentLevelData = levelDataRef.current;
-    const exists = currentLevelData.edges.some(e => 
-      (e.from === fromId && e.to === toId) || 
+    const exists = currentLevelData.edges.some(e =>
+      (e.from === fromId && e.to === toId) ||
       (e.from === toId && e.to === fromId)
     );
-    
+
     if (!exists) {
       const newEdge = { from: fromId, to: toId };
       const newLevelData = {
@@ -227,7 +232,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       console.log('Adding new edge:', newEdge);
       console.log('New level data:', newLevelData);
       setLevelData(newLevelData);
-      
+
       // Force redraw
       setTimeout(() => {
         if (editorGraphics) {
@@ -242,12 +247,12 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
 
   const handleDelete = (x, y) => {
     const clickedNode = findNodeAt(x, y);
-    
+
     if (clickedNode) {
       const newLevelData = {
         ...levelData,
         nodes: levelData.nodes.filter(n => n.id !== clickedNode.id),
-        edges: levelData.edges.filter(e => 
+        edges: levelData.edges.filter(e =>
           e.from !== clickedNode.id && e.to !== clickedNode.id
         )
       };
@@ -266,13 +271,13 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
 
   const findEdgeAt = (x, y) => {
     const threshold = 10;
-    
+
     for (let edge of levelData.edges) {
       const fromNode = levelData.nodes.find(n => n.id === edge.from);
       const toNode = levelData.nodes.find(n => n.id === edge.to);
-      
+
       if (!fromNode || !toNode) continue;
-      
+
       const dist = distanceToLine(x, y, fromNode.x, fromNode.y, toNode.x, toNode.y);
       if (dist < threshold) return edge;
     }
@@ -284,15 +289,15 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
     const B = py - y1;
     const C = x2 - x1;
     const D = y2 - y1;
-    
+
     const dot = A * C + B * D;
     const lenSq = C * C + D * D;
     let param = -1;
-    
+
     if (lenSq !== 0) param = dot / lenSq;
-    
+
     let xx, yy;
-    
+
     if (param < 0) {
       xx = x1;
       yy = y1;
@@ -303,7 +308,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       xx = x1 + param * C;
       yy = y1 + param * D;
     }
-    
+
     const dx = px - xx;
     const dy = py - yy;
     return Math.sqrt(dx * dx + dy * dy);
@@ -314,9 +319,9 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       console.log('Editor graphics not available');
       return;
     }
-    
+
     editorGraphics.clear();
-    
+
     // Grid
     editorGraphics.lineStyle(1, 0x4a5568, 0.3);
     for (let i = 0; i < 600; i += 50) {
@@ -325,22 +330,22 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
     for (let i = 0; i < 400; i += 50) {
       editorGraphics.lineBetween(0, i, 600, i);
     }
-    
+
     // Use current levelData from ref
     const currentLevelData = levelDataRef.current;
     console.log('Current levelData for redraw:', currentLevelData);
-    
+
     // Edges
     editorGraphics.lineStyle(3, 0x48bb78, 1);
     currentLevelData.edges.forEach(edge => {
       const fromNode = currentLevelData.nodes.find(n => n.id === edge.from);
       const toNode = currentLevelData.nodes.find(n => n.id === edge.to);
-      
+
       if (fromNode && toNode) {
         editorGraphics.lineBetween(fromNode.x, fromNode.y, toNode.x, toNode.y);
       }
     });
-    
+
     // Nodes
     console.log('Drawing', currentLevelData.nodes.length, 'nodes');
     currentLevelData.nodes.forEach(node => {
@@ -348,20 +353,20 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       const isSelected = selectedNodeRef.current && selectedNodeRef.current.id === node.id;
       const isStart = currentLevelData.startNodeId === node.id;
       const isGoal = currentLevelData.goalNodeId === node.id;
-      
+
       // เงา
       editorGraphics.fillStyle(0x000000, 0.3);
       editorGraphics.fillCircle(node.x + 2, node.y + 2, 18);
-      
+
       // สีของ node
       let nodeColor = 0x667eea; // สีน้ำเงิน default
       if (isStart) nodeColor = 0x10b981; // สีเขียว start
       else if (isGoal) nodeColor = 0xf59e0b; // สีเหลือง goal
       else if (isSelected) nodeColor = 0xfbbf24; // สีเหลืองอ่อน selected
-      
+
       editorGraphics.fillStyle(nodeColor, 1);
       editorGraphics.fillCircle(node.x, node.y, 18);
-      
+
       // ขอบ
       editorGraphics.lineStyle(3, 0xffffff, 1);
       editorGraphics.strokeCircle(node.x, node.y, 18);
@@ -375,18 +380,18 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
         console.error('Scene is not properly initialized');
         return;
       }
-      
+
       console.log('Creating editor graphics...');
       editorGraphics = scene.add.graphics();
-      
+
       console.log('Adding pointer event listeners...');
       scene.input.on('pointerdown', (pointer) => {
         console.log('Pointer down event triggered:', pointer.x, pointer.y);
         console.log('Current mode at click time:', currentModeRef.current);
-        
+
         // ตรวจสอบว่าคลิกที่ node หรือไม่
         const clickedNode = findNodeAt(pointer.x, pointer.y);
-        
+
         if (clickedNode && (currentModeRef.current === 'start' || currentModeRef.current === 'goal')) {
           console.log('Setting', currentModeRef.current, 'node to:', clickedNode.id);
           handleNodeClick(clickedNode);
@@ -400,16 +405,16 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
             y: Math.round(pointer.y),
             type: 'normal'
           };
-          
+
           const newLevelData = {
             ...levelDataRef.current,
             nodes: [...levelDataRef.current.nodes, newNode]
           };
-          
+
           console.log('Adding new node:', newNode);
           console.log('New level data:', newLevelData);
           setLevelData(newLevelData);
-          
+
           // Force redraw
           setTimeout(() => {
             if (editorGraphics) {
@@ -427,14 +432,14 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
           console.log('No mode selected');
         }
       });
-      
+
       scene.input.on('pointermove', (pointer) => {
         if (currentModeRef.current === 'delete') {
           const node = findNodeAt(pointer.x, pointer.y);
           scene.input.setDefaultCursor(node ? 'pointer' : 'default');
         }
       });
-      
+
       console.log('Editor scene created successfully');
     } catch (error) {
       console.error('Error in createEditor:', error);
@@ -452,7 +457,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
         console.error('Scene is not properly initialized');
         return;
       }
-      
+
       viewerGraphics = scene.add.graphics();
       loadViewerData();
     } catch (error) {
@@ -462,7 +467,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
 
   const updateViewer = (scene) => {
     redrawViewer();
-    
+
     if (simulationActive && savedLevelData && savedLevelData.nodes.length > 0) {
       setSimulationTimer(prev => {
         if (prev > 60) {
@@ -476,16 +481,16 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
 
   const redrawViewer = () => {
     if (!viewerGraphics) return;
-    
+
     viewerGraphics.clear();
-    
+
     // ล้าง texts
     viewerTexts.forEach(t => t.destroy());
     viewerTexts = [];
-    
+
     if (!savedLevelData || savedLevelData.nodes.length === 0) {
-      const text = viewerGraphics.scene.add.text(300, 200, 
-        'ไม่มีข้อมูล Level\nกรุณาสร้างและบันทึกใน Editor', 
+      const text = viewerGraphics.scene.add.text(300, 200,
+        'ไม่มีข้อมูล Level\nกรุณาสร้างและบันทึกใน Editor',
         {
           fontSize: '24px',
           fill: '#ffffff',
@@ -495,7 +500,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       viewerTexts.push(text);
       return;
     }
-    
+
     // Grid
     viewerGraphics.lineStyle(1, 0x4a5568, 0.2);
     for (let i = 0; i < 600; i += 50) {
@@ -504,22 +509,22 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
     for (let i = 0; i < 400; i += 50) {
       viewerGraphics.lineBetween(0, i, 600, i);
     }
-    
+
     // Edges
     viewerGraphics.lineStyle(4, 0x3b82f6, 0.8);
     savedLevelData.edges.forEach(edge => {
       const fromNode = savedLevelData.nodes.find(n => n.id === edge.from);
       const toNode = savedLevelData.nodes.find(n => n.id === edge.to);
-      
+
       if (fromNode && toNode) {
         viewerGraphics.lineBetween(fromNode.x, fromNode.y, toNode.x, toNode.y);
-        
+
         // ลูกศร
         const angle = Math.atan2(toNode.y - fromNode.y, toNode.x - fromNode.x);
         const arrowSize = 10;
         const mx = (fromNode.x + toNode.x) / 2;
         const my = (fromNode.y + toNode.y) / 2;
-        
+
         viewerGraphics.fillStyle(0x3b82f6, 0.8);
         viewerGraphics.fillTriangle(
           mx + Math.cos(angle) * arrowSize,
@@ -531,25 +536,25 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
         );
       }
     });
-    
+
     // Nodes
     savedLevelData.nodes.forEach((node, index) => {
       const isSimulated = simulationActive && index === currentSimulationNode;
       const nodeColor = isSimulated ? 0xfbbf24 : 0x10b981;
       const nodeSize = isSimulated ? 22 : 18;
-      
+
       // เงา
       viewerGraphics.fillStyle(0x000000, 0.4);
       viewerGraphics.fillCircle(node.x + 3, node.y + 3, nodeSize);
-      
+
       // Node
       viewerGraphics.fillStyle(nodeColor, 1);
       viewerGraphics.fillCircle(node.x, node.y, nodeSize);
-      
+
       // ขอบ
       viewerGraphics.lineStyle(3, 0xffffff, 1);
       viewerGraphics.strokeCircle(node.x, node.y, nodeSize);
-      
+
       // ID
       const text = viewerGraphics.scene.add.text(node.x, node.y, node.id, {
         fontSize: '14px',
@@ -557,7 +562,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
         fontStyle: 'bold'
       }).setOrigin(0.5);
       viewerTexts.push(text);
-      
+
       // Animation
       if (isSimulated) {
         viewerGraphics.lineStyle(2, 0xfbbf24, 0.5);
@@ -578,7 +583,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
     console.log('setMode called with:', mode);
     console.log('Current mode before change:', currentMode);
     console.log('About to call setCurrentMode with:', mode);
-    
+
     if (currentMode === mode) {
       setCurrentMode(null);
       setSelectedNode(null);
@@ -588,7 +593,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       setSelectedNode(null);
       console.log('Mode set to:', mode);
     }
-    
+
     // Verify the state change
     setTimeout(() => {
       console.log('Mode after timeout:', currentMode);
@@ -619,7 +624,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       alert('⚠️ กรุณาใส่ชื่อด่าน');
       return;
     }
-    
+
     if (levelData.nodes.length === 0) {
       alert('⚠️ ไม่มีข้อมูลให้บันทึก กรุณาเพิ่ม Node อย่างน้อย 1 ตัว');
       return;
@@ -628,10 +633,10 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
     try {
       // เก็บข้อมูลใน memory ชั่วคราว
       setSavedLevelData(JSON.parse(JSON.stringify(levelData)));
-      
+
       // หาประเภทด่านที่เลือก
       const selectedType = levelsTypesData.find(type => type.level_type_id === selectedLevelType);
-      
+
       // สร้าง level ใหม่ผ่าน API
       const newLevel = {
         level_name: levelName || `${selectedType?.type_name || 'Custom'} Level - ${new Date().toLocaleDateString()}`,
@@ -650,20 +655,21 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
         treasures: JSON.stringify([]),
         background_image: null
       };
-      
+
       const response = await fetch(`${API_URL}/api/levels`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true'  // เพิ่มบรรทัดนี้
         },
         body: JSON.stringify(newLevel)
       });
 
       const result = await response.json();
-      
+
       if (result.success) {
         console.log('Level saved to database:', result.data);
-        
+
         // แสดงข้อมูลที่บันทึกสำเร็จ
         alert(`✅ บันทึกสำเร็จ! ด่าน "${result.data.level_name}" ถูกเพิ่มลงในฐานข้อมูลแล้ว (ID: ${result.data.level_id})
 
@@ -682,7 +688,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       } else {
         throw new Error(result.message);
       }
-      
+
     } catch (error) {
       console.error('Error saving level:', error);
       alert('❌ เกิดข้อผิดพลาดในการบันทึก!');
@@ -694,7 +700,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
       alert('⚠️ ไม่มีข้อมูลให้จำลอง');
       return;
     }
-    
+
     setSimulationActive(!simulationActive);
     setCurrentSimulationNode(0);
     setSimulationTimer(0);
@@ -723,11 +729,11 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
           constructor() {
             super({ key: 'EditorScene' });
           }
-          
+
           create() {
             createEditor(this);
           }
-          
+
           update() {
             updateEditor(this);
           }
@@ -737,11 +743,11 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
           constructor() {
             super({ key: 'ViewerScene' });
           }
-          
+
           create() {
             createViewer(this);
           }
-          
+
           update() {
             updateViewer(this);
           }
@@ -818,11 +824,11 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
               constructor() {
                 super({ key: 'EditorScene' });
               }
-              
+
               create() {
                 createEditor(this);
               }
-              
+
               update() {
                 updateEditor(this);
               }
@@ -850,11 +856,11 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
               constructor() {
                 super({ key: 'ViewerScene' });
               }
-              
+
               create() {
                 createViewer(this);
               }
-              
+
               update() {
                 updateViewer(this);
               }
@@ -907,26 +913,24 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
         <h2 className="text-2xl font-bold text-gray-800 mb-2">🎮 Level Editor & Viewer</h2>
         <p className="text-gray-600">สร้างและแสดงผล Level ของเกม</p>
       </div>
-      
+
       {/* Tabs - ซ่อนใน viewer mode */}
       {!viewerMode && (
         <div className="flex justify-center gap-2 mb-6">
           <button
-            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-              activeTab === 'editor'
+            className={`px-6 py-3 rounded-lg font-semibold transition-all ${activeTab === 'editor'
                 ? 'bg-blue-500 text-white shadow-lg'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
+              }`}
             onClick={() => setActiveTab('editor')}
           >
             ✏️ Editor
           </button>
           <button
-            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-              activeTab === 'viewer'
+            className={`px-6 py-3 rounded-lg font-semibold transition-all ${activeTab === 'viewer'
                 ? 'bg-blue-500 text-white shadow-lg'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
+              }`}
             onClick={() => setActiveTab('viewer')}
           >
             👁️ Viewer
@@ -949,203 +953,197 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
               <div ref={currentGameRef} id="game-container-editor"></div>
             )}
           </div>
-          
+
           {/* Control Panel - ซ่อนใน viewer mode */}
           {!viewerMode && (
             <div className="w-80 space-y-4 flex-shrink-0">
               <h3 className="text-lg font-semibold text-gray-800">🛠️ เครื่องมือแก้ไข</h3>
-            {console.log('Rendering editor tab, currentMode:', currentMode)}
-            
-            {/* Stats */}
-            <div className="flex justify-between bg-gray-100 p-4 rounded-lg">
-              <div className="text-center">
-                <div className="text-xs text-gray-600 mb-1">Nodes</div>
-                <div className="text-2xl font-bold text-blue-600">{levelData.nodes.length}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-xs text-gray-600 mb-1">Edges</div>
-                <div className="text-2xl font-bold text-blue-600">{levelData.edges.length}</div>
-              </div>
-            </div>
-            
-            {/* Level Information */}
-            <div className="bg-gray-50 p-4 rounded-lg space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  📝 ชื่อด่าน
-                </label>
-                <input
-                  type="text"
-                  value={levelName}
-                  onChange={(e) => setLevelName(e.target.value)}
-                  placeholder="ใส่ชื่อด่าน..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900 bg-white"
-                />
-                <div className="mt-1 text-xs text-gray-500">
-                  ชื่อด่านที่ผู้เล่นจะเห็น
+              {console.log('Rendering editor tab, currentMode:', currentMode)}
+
+              {/* Stats */}
+              <div className="flex justify-between bg-gray-100 p-4 rounded-lg">
+                <div className="text-center">
+                  <div className="text-xs text-gray-600 mb-1">Nodes</div>
+                  <div className="text-2xl font-bold text-blue-600">{levelData.nodes.length}</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xs text-gray-600 mb-1">Edges</div>
+                  <div className="text-2xl font-bold text-blue-600">{levelData.edges.length}</div>
                 </div>
               </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  📄 คำอธิบาย
-                </label>
-                <textarea
-                  value={levelDescription}
-                  onChange={(e) => setLevelDescription(e.target.value)}
-                  placeholder="ใส่คำอธิบายด่าน..."
-                  rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900 bg-white resize-none"
-                />
-                <div className="mt-1 text-xs text-gray-500">
-                  คำอธิบายสั้นๆ เกี่ยวกับด่านนี้
+
+              {/* Level Information */}
+              <div className="bg-gray-50 p-4 rounded-lg space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    📝 ชื่อด่าน
+                  </label>
+                  <input
+                    type="text"
+                    value={levelName}
+                    onChange={(e) => setLevelName(e.target.value)}
+                    placeholder="ใส่ชื่อด่าน..."
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900 bg-white"
+                  />
+                  <div className="mt-1 text-xs text-gray-500">
+                    ชื่อด่านที่ผู้เล่นจะเห็น
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    📄 คำอธิบาย
+                  </label>
+                  <textarea
+                    value={levelDescription}
+                    onChange={(e) => setLevelDescription(e.target.value)}
+                    placeholder="ใส่คำอธิบายด่าน..."
+                    rows={3}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900 bg-white resize-none"
+                  />
+                  <div className="mt-1 text-xs text-gray-500">
+                    คำอธิบายสั้นๆ เกี่ยวกับด่านนี้
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    📋 ประเภทด่าน
+                  </label>
+                  <select
+                    value={selectedLevelType}
+                    onChange={(e) => setSelectedLevelType(parseInt(e.target.value))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900 bg-white"
+                  >
+                    {levelsTypesData.map(type => (
+                      <option key={type.level_type_id} value={type.level_type_id}>
+                        {type.type_name} - {type.description}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="mt-2 text-xs text-gray-500">
+                    เลือกประเภทด่านที่ต้องการสร้าง
+                  </div>
                 </div>
               </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  📋 ประเภทด่าน
-                </label>
-                <select
-                  value={selectedLevelType}
-                  onChange={(e) => setSelectedLevelType(parseInt(e.target.value))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900 bg-white"
+
+              {/* Mode Indicator */}
+              <div className={`p-3 rounded-lg text-center font-semibold ${currentMode ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-600'
+                }`}>
+                {getModeText()}
+              </div>
+
+              {/* Control Buttons */}
+              <div className="space-y-2">
+                {console.log('Rendering Add Node button, currentMode:', currentMode)}
+                <button
+                  className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${currentMode === 'node'
+                      ? 'bg-blue-500 text-white shadow-lg'
+                      : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                    }`}
+                  onClick={() => {
+                    console.log('Button clicked: Add Node');
+                    setMode('node');
+                  }}
                 >
-                  {levelsTypesData.map(type => (
-                    <option key={type.level_type_id} value={type.level_type_id}>
-                      {type.type_name} - {type.description}
-                    </option>
-                  ))}
-                </select>
-                <div className="mt-2 text-xs text-gray-500">
-                  เลือกประเภทด่านที่ต้องการสร้าง
+                  ➕ เพิ่ม Node
+                </button>
+
+                <button
+                  className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${currentMode === 'edge'
+                      ? 'bg-blue-500 text-white shadow-lg'
+                      : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                    }`}
+                  onClick={() => {
+                    console.log('Button clicked: Connect Edge');
+                    setMode('edge');
+                  }}
+                >
+                  🔗 เชื่อม Edge
+                </button>
+
+                <button
+                  className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${currentMode === 'start'
+                      ? 'bg-green-500 text-white shadow-lg'
+                      : 'bg-green-100 text-green-700 hover:bg-green-200'
+                    }`}
+                  onClick={() => setMode('start')}
+                >
+                  🏁 ตั้ง Node เริ่ม
+                </button>
+
+                <button
+                  className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${currentMode === 'goal'
+                      ? 'bg-yellow-500 text-white shadow-lg'
+                      : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
+                    }`}
+                  onClick={() => setMode('goal')}
+                >
+                  🎯 ตั้ง Node ปลาย
+                </button>
+
+                <button
+                  className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${currentMode === 'delete'
+                      ? 'bg-blue-500 text-white shadow-lg'
+                      : 'bg-orange-100 text-orange-700 hover:bg-orange-200'
+                    }`}
+                  onClick={() => setMode('delete')}
+                >
+                  🗑️ ลบ Node/Edge
+                </button>
+
+                <button
+                  className="w-full py-2 px-4 rounded-lg font-semibold bg-red-100 text-red-700 hover:bg-red-200 transition-all"
+                  onClick={clearAll}
+                >
+                  🧹 ล้างทั้งหมด
+                </button>
+
+                <button
+                  className="w-full py-2 px-4 rounded-lg font-semibold bg-green-100 text-green-700 hover:bg-green-200 transition-all"
+                  onClick={exportJSON}
+                >
+                  💾 Export JSON
+                </button>
+
+                <button
+                  className="w-full py-2 px-4 rounded-lg font-semibold bg-green-500 text-white hover:bg-green-600 transition-all shadow-lg"
+                  onClick={saveLevel}
+                >
+                  📤 บันทึกลง Database
+                </button>
+              </div>
+
+              {/* JSON Output */}
+              <div className="bg-gray-50 border-2 border-gray-200 rounded-lg p-3">
+                <h4 className="font-semibold text-gray-800 mb-2">📋 ข้อมูล Level</h4>
+                <div className="text-sm font-mono text-gray-700 max-h-48 overflow-y-auto">
+                  {JSON.stringify({
+                    name: levelName || 'ยังไม่ระบุ',
+                    description: levelDescription || 'ยังไม่ระบุ',
+                    category_id: selectedLevelType,
+                    nodes: levelData.nodes,
+                    edges: levelData.edges,
+                    startNodeId: levelData.startNodeId,
+                    goalNodeId: levelData.goalNodeId
+                  }, null, 2)}
+                </div>
+              </div>
+
+              {/* Level Info */}
+              <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-3">
+                <h4 className="font-semibold text-blue-800 mb-2">📊 ข้อมูล Level:</h4>
+                <div className="text-sm text-blue-700 space-y-1">
+                  <div><strong>ชื่อ:</strong> {levelName || 'ยังไม่ระบุ'}</div>
+                  <div><strong>คำอธิบาย:</strong> {levelDescription || 'ยังไม่ระบุ'}</div>
+                  <div><strong>ประเภท:</strong> {levelsTypesData.find(t => t.level_type_id === selectedLevelType)?.type_name || 'ไม่ระบุ'}</div>
+                  <div><strong>Nodes:</strong> {levelData.nodes.length}</div>
+                  <div><strong>Edges:</strong> {levelData.edges.length}</div>
+                  <div><strong>Start Node:</strong> {levelData.startNodeId ? `Node ${levelData.startNodeId}` : 'ยังไม่ตั้ง'}</div>
+                  <div><strong>Goal Node:</strong> {levelData.goalNodeId ? `Node ${levelData.goalNodeId}` : 'ยังไม่ตั้ง'}</div>
                 </div>
               </div>
             </div>
-            
-            {/* Mode Indicator */}
-            <div className={`p-3 rounded-lg text-center font-semibold ${
-              currentMode ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-600'
-            }`}>
-              {getModeText()}
-            </div>
-            
-            {/* Control Buttons */}
-            <div className="space-y-2">
-              {console.log('Rendering Add Node button, currentMode:', currentMode)}
-              <button
-                className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${
-                  currentMode === 'node'
-                    ? 'bg-blue-500 text-white shadow-lg'
-                    : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
-                }`}
-                onClick={() => {
-                  console.log('Button clicked: Add Node');
-                  setMode('node');
-                }}
-              >
-                ➕ เพิ่ม Node
-              </button>
-              
-              <button
-                className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${
-                  currentMode === 'edge'
-                    ? 'bg-blue-500 text-white shadow-lg'
-                    : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
-                }`}
-                onClick={() => {
-                  console.log('Button clicked: Connect Edge');
-                  setMode('edge');
-                }}
-              >
-                🔗 เชื่อม Edge
-              </button>
-              
-              <button
-                className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${
-                  currentMode === 'start'
-                    ? 'bg-green-500 text-white shadow-lg'
-                    : 'bg-green-100 text-green-700 hover:bg-green-200'
-                }`}
-                onClick={() => setMode('start')}
-              >
-                🏁 ตั้ง Node เริ่ม
-              </button>
-              
-              <button
-                className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${
-                  currentMode === 'goal'
-                    ? 'bg-yellow-500 text-white shadow-lg'
-                    : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
-                }`}
-                onClick={() => setMode('goal')}
-              >
-                🎯 ตั้ง Node ปลาย
-              </button>
-              
-              <button
-                className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${
-                  currentMode === 'delete'
-                    ? 'bg-blue-500 text-white shadow-lg'
-                    : 'bg-orange-100 text-orange-700 hover:bg-orange-200'
-                }`}
-                onClick={() => setMode('delete')}
-              >
-                🗑️ ลบ Node/Edge
-              </button>
-              
-              <button
-                className="w-full py-2 px-4 rounded-lg font-semibold bg-red-100 text-red-700 hover:bg-red-200 transition-all"
-                onClick={clearAll}
-              >
-                🧹 ล้างทั้งหมด
-              </button>
-              
-              <button
-                className="w-full py-2 px-4 rounded-lg font-semibold bg-green-100 text-green-700 hover:bg-green-200 transition-all"
-                onClick={exportJSON}
-              >
-                💾 Export JSON
-              </button>
-              
-              <button
-                className="w-full py-2 px-4 rounded-lg font-semibold bg-green-500 text-white hover:bg-green-600 transition-all shadow-lg"
-                onClick={saveLevel}
-              >
-                📤 บันทึกลง Database
-              </button>
-            </div>
-            
-            {/* JSON Output */}
-            <div className="bg-gray-50 border-2 border-gray-200 rounded-lg p-3">
-              <h4 className="font-semibold text-gray-800 mb-2">📋 ข้อมูล Level</h4>
-              <div className="text-sm font-mono text-gray-700 max-h-48 overflow-y-auto">
-                {JSON.stringify({
-                  name: levelName || 'ยังไม่ระบุ',
-                  description: levelDescription || 'ยังไม่ระบุ',
-                  category_id: selectedLevelType,
-                  nodes: levelData.nodes,
-                  edges: levelData.edges,
-                  startNodeId: levelData.startNodeId,
-                  goalNodeId: levelData.goalNodeId
-                }, null, 2)}
-              </div>
-            </div>
-            
-            {/* Level Info */}
-            <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-3">
-              <h4 className="font-semibold text-blue-800 mb-2">📊 ข้อมูล Level:</h4>
-              <div className="text-sm text-blue-700 space-y-1">
-                <div><strong>ชื่อ:</strong> {levelName || 'ยังไม่ระบุ'}</div>
-                <div><strong>คำอธิบาย:</strong> {levelDescription || 'ยังไม่ระบุ'}</div>
-                <div><strong>ประเภท:</strong> {levelsTypesData.find(t => t.level_type_id === selectedLevelType)?.type_name || 'ไม่ระบุ'}</div>
-                <div><strong>Nodes:</strong> {levelData.nodes.length}</div>
-                <div><strong>Edges:</strong> {levelData.edges.length}</div>
-                <div><strong>Start Node:</strong> {levelData.startNodeId ? `Node ${levelData.startNodeId}` : 'ยังไม่ตั้ง'}</div>
-                <div><strong>Goal Node:</strong> {levelData.goalNodeId ? `Node ${levelData.goalNodeId}` : 'ยังไม่ตั้ง'}</div>
-              </div>
-            </div>
-          </div>
           )}
         </div>
       )}
@@ -1165,11 +1163,11 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
               <div ref={currentViewerRef} id="game-container-viewer"></div>
             )}
           </div>
-          
+
           {/* Viewer Panel */}
           <div className="w-80 space-y-4 flex-shrink-0">
             <h3 className="text-lg font-semibold text-gray-800">📊 ข้อมูล Level</h3>
-            
+
             {(!initialData || initialData.nodes.length === 0) && (!savedLevelData || savedLevelData.nodes.length === 0) && levelData.nodes.length === 0 ? (
               <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-4 text-center">
                 <div className="text-yellow-800 font-semibold">
@@ -1181,7 +1179,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
                 <div className="bg-green-50 border-2 border-green-300 rounded-lg p-4 text-center">
                   <div className="text-green-800 font-semibold">✅ โหลดข้อมูลสำเร็จ!</div>
                 </div>
-                
+
                 {/* แสดงข้อมูล level */}
                 <div className="bg-blue-50 border-2 border-blue-300 rounded-lg p-4">
                   <h4 className="font-semibold text-blue-800 mb-2">📋 ข้อมูล Level</h4>
@@ -1192,7 +1190,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
                     <div><strong>สร้างเมื่อ:</strong> {initialData?.createdAt ? new Date(initialData.createdAt).toLocaleDateString('th-TH') : 'ไม่ระบุ'}</div>
                   </div>
                 </div>
-                
+
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <h4 className="font-semibold text-gray-800 mb-3">📈 สถิติ</h4>
                   <div className="space-y-2">
@@ -1219,13 +1217,13 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
                     <div className="flex justify-between">
                       <span className="text-gray-600">ความยาก:</span>
                       <span className="font-bold text-gray-800">
-                        {initialData?.difficulty || ((initialData || savedLevelData || levelData).nodes.length < 5 ? 'ง่าย' : 
-                         (initialData || savedLevelData || levelData).nodes.length < 10 ? 'ปานกลาง' : 'ยาก')}
+                        {initialData?.difficulty || ((initialData || savedLevelData || levelData).nodes.length < 5 ? 'ง่าย' :
+                          (initialData || savedLevelData || levelData).nodes.length < 10 ? 'ปานกลาง' : 'ยาก')}
                       </span>
                     </div>
                   </div>
                 </div>
-                
+
                 {/* ซ่อนปุ่มเหล่านี้ใน viewer mode */}
                 {!viewerMode && (
                   <div className="space-y-2">
@@ -1235,20 +1233,19 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
                     >
                       🔄 โหลดข้อมูลใหม่
                     </button>
-                    
+
                     <button
-                      className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${
-                        simulationActive
+                      className={`w-full py-2 px-4 rounded-lg font-semibold transition-all ${simulationActive
                           ? 'bg-red-500 text-white hover:bg-red-600'
                           : 'bg-orange-100 text-orange-700 hover:bg-orange-200'
-                      }`}
+                        }`}
                       onClick={toggleSimulation}
                     >
                       {simulationActive ? '⏸️ หยุดจำลอง' : '▶️ จำลองการเล่น'}
                     </button>
                   </div>
                 )}
-                
+
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <h4 className="font-semibold text-gray-800 mb-3">📝 รายละเอียด Nodes</h4>
                   <div className="space-y-1 max-h-48 overflow-y-auto">
@@ -1260,7 +1257,7 @@ const LevelEditor = ({ onSaveLevel, initialData = null, viewerMode = false, game
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <h4 className="font-semibold text-gray-800 mb-3">🔗 รายละเอียด Edges</h4>
                   <div className="space-y-1 max-h-48 overflow-y-auto">

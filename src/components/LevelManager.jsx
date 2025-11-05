@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import LevelEditor from './LevelEditor';
 import LevelDetailViewer from './LevelDetailViewer';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const LevelManager = ({ gameRef = null }) => {
   const [levels, setLevels] = useState([]);
@@ -21,11 +21,16 @@ const LevelManager = ({ gameRef = null }) => {
     try {
       setLoading(true);
       setError(null);
-      
+
       // โหลดข้อมูลจาก API
-      const response = await fetch(`${API_URL}/api/levels`);
+      const response = await fetch(`${API_URL}/api/levels`, {
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+          'Content-Type': 'application/json'
+        }
+      });
       const result = await response.json();
-      
+
       if (result.success) {
         // แปลงข้อมูลจาก API ให้ตรงกับ format ที่ component ต้องการ
         const formattedLevels = result.data.map(level => {
@@ -63,14 +68,14 @@ const LevelManager = ({ gameRef = null }) => {
             updatedAt: level.updated_at
           };
         });
-        
+
         setLevels(formattedLevels);
         console.log('Total levels loaded from API:', formattedLevels.length);
         console.log('Sample level data:', formattedLevels[0]); // Debug first level
       } else {
         throw new Error(result.message);
       }
-      
+
     } catch (err) {
       setError('Failed to load levels from API');
       console.error('Error loading levels:', err);
@@ -86,11 +91,14 @@ const LevelManager = ({ gameRef = null }) => {
 
     try {
       const response = await fetch(`${API_URL}/api/levels/${levelId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'ngrok-skip-browser-warning': 'true'
+        }
       });
-      
+
       const result = await response.json();
-      
+
       if (result.success) {
         setLevels(prev => prev.filter(level => level.id !== levelId));
         alert('ลบ level สำเร็จ!');
@@ -106,9 +114,14 @@ const LevelManager = ({ gameRef = null }) => {
   const handleEditLevel = async (level) => {
     try {
       // ดึงข้อมูล level พร้อมข้อมูลที่เกี่ยวข้องทั้งหมด
-      const response = await fetch(`${API_URL}/api/levels/${level.id}/full-details`);
+      const response = await fetch(`${API_URL}/api/levels/${level.id}/full-details`, {
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+          'Content-Type': 'application/json'
+        }
+      });
       const result = await response.json();
-      
+
       if (result.success) {
         setViewingLevel(result.data);
       } else {
@@ -123,9 +136,14 @@ const LevelManager = ({ gameRef = null }) => {
   const handleViewLevel = async (level) => {
     try {
       // ดึงข้อมูล level พร้อมข้อมูลที่เกี่ยวข้องทั้งหมด
-      const response = await fetch(`${API_URL}/api/levels/${level.id}/full-details`);
+      const response = await fetch(`${API_URL}/api/levels/${level.id}/full-details`, {
+        headers: {
+          'ngrok-skip-browser-warning': 'true',
+          'Content-Type': 'application/json'
+        }
+      });
       const result = await response.json();
-      
+
       if (result.success) {
         setViewingLevel(result.data);
       } else {
@@ -160,17 +178,18 @@ const LevelManager = ({ gameRef = null }) => {
         treasures: JSON.stringify([]),
         background_image: null
       };
-      
+
       const response = await fetch(`${API_URL}/api/levels`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true'  // เพิ่มบรรทัดนี้
         },
         body: JSON.stringify(newLevelData)
       });
-      
+
       const result = await response.json();
-      
+
       if (result.success) {
         // แปลงข้อมูลจาก API response
         const formattedNewLevel = {
@@ -189,7 +208,7 @@ const LevelManager = ({ gameRef = null }) => {
           createdAt: result.data.created_at,
           updatedAt: result.data.updated_at
         };
-        
+
         setLevels(prev => [formattedNewLevel, ...prev]);
         alert('คัดลอก level สำเร็จ!');
       } else {
@@ -319,8 +338,8 @@ const LevelManager = ({ gameRef = null }) => {
       {filteredLevels.length === 0 ? (
         <div className="text-center py-12">
           <div className="text-gray-500 text-lg">
-            {searchQuery || selectedDifficulty !== 'all' 
-              ? 'ไม่พบ level ที่ตรงกับเงื่อนไข' 
+            {searchQuery || selectedDifficulty !== 'all'
+              ? 'ไม่พบ level ที่ตรงกับเงื่อนไข'
               : 'ยังไม่มี level ในระบบ'}
           </div>
         </div>
@@ -344,7 +363,7 @@ const LevelManager = ({ gameRef = null }) => {
                       ID: {level.id}
                     </span>
                   </div>
-                  
+
                   <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 mb-3">
                     <div>
                       <span className="font-medium">📝 คำอธิบาย:</span> {level.description || 'ไม่มีคำอธิบาย'}
@@ -353,7 +372,7 @@ const LevelManager = ({ gameRef = null }) => {
                       <span className="font-medium">🏷️ หมวดหมู่:</span> {level.levelTypeId || 'ไม่ระบุ'}
                     </div>
                   </div>
-                  
+
                   <div className="grid grid-cols-3 gap-4 text-sm text-gray-600 mb-3">
                     <div>
                       <span className="font-medium">📍 Nodes:</span> {level.nodes?.length || 0}
@@ -365,7 +384,7 @@ const LevelManager = ({ gameRef = null }) => {
                       <span className="font-medium">👹 Monsters:</span> {level.monsters?.length || 0}
                     </div>
                   </div>
-                  
+
                   <div className="grid grid-cols-3 gap-4 text-sm text-gray-600 mb-3">
                     <div>
                       <span className="font-medium">🧱 Obstacles:</span> {level.obstacles?.length || 0}
@@ -377,16 +396,15 @@ const LevelManager = ({ gameRef = null }) => {
                       <span className="font-medium">👥 People:</span> {level.people?.length || 0}
                     </div>
                   </div>
-                  
+
                   <div className="grid grid-cols-3 gap-4 text-sm text-gray-600">
                     <div>
                       <span className="font-medium">💎 Treasures:</span> {level.treasures?.length || 0}
                     </div>
                     <div>
-                      <span className="font-medium">💻 Text Code:</span> 
-                      <span className={`ml-2 px-2 py-1 rounded text-xs ${
-                        level.textcode ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                      }`}>
+                      <span className="font-medium">💻 Text Code:</span>
+                      <span className={`ml-2 px-2 py-1 rounded text-xs ${level.textcode ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                        }`}>
                         {level.textcode ? 'เปิดใช้งาน' : 'ปิดใช้งาน'}
                       </span>
                     </div>
@@ -394,9 +412,9 @@ const LevelManager = ({ gameRef = null }) => {
                       <span className="font-medium">📅 สร้างเมื่อ:</span> {level.createdAt ? new Date(level.createdAt).toLocaleDateString('th-TH') : 'ไม่ระบุ'}
                     </div>
                   </div>
-                  
+
                 </div>
-                
+
                 <div className="flex flex-col gap-3 ml-6">
                   <button
                     onClick={() => handleEditLevel(level)}
@@ -404,21 +422,21 @@ const LevelManager = ({ gameRef = null }) => {
                   >
                     📊 ดูรายละเอียด
                   </button>
-                  
+
                   <button
                     onClick={() => handleViewLevel(level)}
                     className="px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg hover:from-purple-600 hover:to-purple-700 transition-all text-sm font-medium shadow-sm"
                   >
                     👁️ Viewer
                   </button>
-                  
+
                   <button
                     onClick={() => handleDuplicateLevel(level)}
                     className="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all text-sm font-medium shadow-sm"
                   >
                     📋 คัดลอก
                   </button>
-                  
+
                   <button
                     onClick={() => handleDeleteLevel(level.id)}
                     className="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all text-sm font-medium shadow-sm"
@@ -434,7 +452,7 @@ const LevelManager = ({ gameRef = null }) => {
 
       {/* Level Detail Viewer Modal */}
       {viewingLevel && (
-        <LevelDetailViewer 
+        <LevelDetailViewer
           levelData={viewingLevel}
           onClose={closeViewer}
         />

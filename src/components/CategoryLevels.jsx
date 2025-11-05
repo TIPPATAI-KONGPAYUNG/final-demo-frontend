@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const CategoryLevels = () => {
   const [levels, setLevels] = useState([]);
@@ -20,7 +20,12 @@ const CategoryLevels = () => {
   const loadLevels = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_URL}/api/demo/levels/${categoryId}`);
+      const response = await fetch(`${API_URL}/api/demo/levels/${categoryId}`, {
+          headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'Content-Type': 'application/json'
+          }
+        });
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -42,7 +47,12 @@ const CategoryLevels = () => {
 
   const loadCategoryInfo = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/demo/level-categories`);
+      const response = await fetch(`${API_URL}/api/demo/level-categories`, {
+          headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'Content-Type': 'application/json'
+          }
+        });
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

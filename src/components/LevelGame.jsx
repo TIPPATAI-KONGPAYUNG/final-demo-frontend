@@ -9,7 +9,7 @@ import "blockly/javascript";
 import { javascriptGenerator } from "blockly/javascript";
 import { Editor } from '@monaco-editor/react';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 window.Blockly = Blockly;
 // Import utilities and data
@@ -1084,7 +1084,12 @@ const LevelGame = () => {
       }
       console.log("✅ Weapons data loaded successfully");
 
-      const response = await fetch(`${API_URL}/api/game-data`);
+      const response = await fetch(`${API_URL}/api/game-data`, {
+          headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'Content-Type': 'application/json'
+          }
+        });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -1118,7 +1123,12 @@ const LevelGame = () => {
       console.log("Loading level data for levelId:", levelId);
       setCurrentHint("📡 กำลังโหลดข้อมูลด่าน...");
 
-      const response = await fetch(`${API_URL}/api/demo/play-level/${levelId}`);
+      const response = await fetch(`${API_URL}/api/demo/play-level/${levelId}`, {
+          headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'Content-Type': 'application/json'
+          }
+        });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -1134,7 +1144,12 @@ const LevelGame = () => {
         // ดึงข้อมูล victory conditions จาก API
         let victoryConditions = [];
         try {
-          const victoryResponse = await fetch(`${API_URL}/api/levels/${levelId}/victory-conditions`);
+          const victoryResponse = await fetch(`${API_URL}/api/levels/${levelId}/victory-conditions`, {
+          headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'Content-Type': 'application/json'
+          }
+        });
           if (victoryResponse.ok) {
             const victoryData = await victoryResponse.json();
             if (victoryData.success) {
@@ -1149,7 +1164,12 @@ const LevelGame = () => {
         // ดึงข้อมูล guides จาก API
         let guides = [];
         try {
-          const guidesResponse = await fetch(`${API_URL}/api/levels/${levelId}/guides`);
+          const guidesResponse = await fetch(`${API_URL}/api/levels/${levelId}/guides`, {
+          headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'Content-Type': 'application/json'
+          }
+        });
           if (guidesResponse.ok) {
             const guidesData = await guidesResponse.json();
             if (guidesData.success) {

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { directions } from '../utils/gameUtils';
 import LevelDetailViewer from './LevelDetailViewer';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const GameArea = ({
   gameRef,
@@ -52,7 +52,12 @@ const GameArea = ({
 
     setViewerLoading(true);
     try {
-      const res = await fetch(`${API_URL}/api/levels/${levelId}/full-details`);
+      const res = await fetch(`${API_URL}/api/levels/${levelId}/full-details`, {
+          headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'Content-Type': 'application/json'
+          }
+        });
       const json = await res.json();
       if (json && json.success && json.data) {
         setViewerData(json.data);

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Settings } from 'lucide-react';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const CategorySelection = () => {
   const navigate = useNavigate();
@@ -16,13 +16,16 @@ const CategorySelection = () => {
     const fetchCategories = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${API_URL}/api/demo/level-categories`);
         
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        const response = await fetch(`${API_URL}/api/demo/level-categories`, {
+          headers: {
+            'ngrok-skip-browser-warning': 'true',
+            'Content-Type': 'application/json'
+          }
+        });
         
         const data = await response.json();
+        console.log('Parsed JSON:', data);
         if (data.success) {
           setCategories(data.data);
         } else {
