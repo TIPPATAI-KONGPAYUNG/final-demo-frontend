@@ -31,7 +31,7 @@ const ProgressModal = ({ isOpen, onClose, gameResult, levelData, attempts, timeS
       <div className="relative bg-black p-6 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto transform transition-all duration-300">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold text-white">
-            {gameResult === 'victory' ? 'Victory Progress' : 'Game Progress'}
+            {gameResult === 'victory' ? 'Victory Progress' : 'Game Over'}
           </h2>
           <button
             onClick={onClose}
