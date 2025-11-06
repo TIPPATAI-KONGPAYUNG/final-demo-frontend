@@ -99,7 +99,7 @@ const ProgressModal = ({ isOpen, onClose, gameResult, levelData, attempts, timeS
               {levelData?.textcode && userProgressExample.text_code && (
                 <div className="mt-2">
                   <p className="font-bold">Text Code:</p>
-                  <div className="bg-gray-950 p-2 rounded mt-1 text-xs font-mono overflow-x-auto max-h-32 overflow-y-auto">
+                  <div className="bg-gray-950 text-gray-100 p-2 rounded mt-1 text-xs font-mono overflow-x-auto max-h-32 overflow-y-auto">
                     {userProgressExample.text_code.length > 100 
                       ? userProgressExample.text_code.substring(0, 1000)
                       : userProgressExample.text_code}
