@@ -7,8 +7,6 @@ const LevelDetailViewer = ({ levelData, onClose }) => {
 
   const { level, enabledBlocks, patterns, victoryConditions, guides, weaponImages } = levelData;
 
-  console.log('ข้อมูล: ',levelData)
-
   const tabs = [
     { id: 'overview', label: 'ภาพรวม' },
     { id: 'blocks', label: 'Blocks' },
